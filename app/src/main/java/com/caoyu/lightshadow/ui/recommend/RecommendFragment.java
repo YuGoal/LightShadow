@@ -33,7 +33,8 @@ public class RecommendFragment extends Fragment {
     RecyclerView mRecycleview;
     private RecommendAdapter mAdapter;
     private List<One.DataBean.ContentListBean> mData;
-    ZLoadingDialog dialog ;
+    ZLoadingDialog dialog;
+
     public RecommendFragment() {
         // Required empty public constructor
     }
@@ -61,11 +62,13 @@ public class RecommendFragment extends Fragment {
                 .setLoadingColor(R.color.orange)//颜色
                 .setHintText("Loading...")
                 .show();
+        //获取列表
         Api.getRetrofit().create(RecommendApi.class).getIdList()
                 .enqueue(new Callback<IdList>() {
                     @Override
                     public void onResponse(Call<IdList> call, Response<IdList> response) {
                         if (response.body().getData().size() > 0) {
+                            //根据列表值获取数据
                             Api.getRetrofit().create(RecommendApi.class).getOneList(response.body().getData().get(0))
                                     .enqueue(new Callback<One>() {
                                         @Override

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -26,16 +25,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:layout_behavior="@string/bye_burger_bottom_behavior"></android.support.v4.view.ViewPager>
+            />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="?android:attr/windowBackground"
-            app:layout_behavior="@string/bye_burger_bottom_behavior"
+            android:background="@color/primary_dark"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:itemTextColor="@color/white"
             app:menu="@menu/navigation" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

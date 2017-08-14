@@ -88,6 +88,7 @@ public class MainActivity extends BaseActivity {
                     mNavigation.getMenu().getItem(0).setChecked(false);
                 }
                 mNavigation.getMenu().getItem(position).setChecked(true);
+
                 prevMenuItem = mNavigation.getMenu().getItem(position);
             }
 

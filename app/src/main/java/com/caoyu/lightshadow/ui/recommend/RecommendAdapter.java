@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.caoyu.lightshadow.api.model.Recommend;
+import com.caoyu.lightshadow.api.model.One;
 
 import java.util.List;
 
@@ -22,10 +22,10 @@ import java.util.List;
 
 public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.RecommendViewHolder> {
     private Context mContext;
-    private List<Recommend.FeedListBean> mItem;
+    private List<One.DataBean.ContentListBean> mItem;
     private LayoutInflater mInflater;
 
-    public RecommendAdapter(Context context, List<Recommend.FeedListBean> item) {
+    public RecommendAdapter(Context context, List<One.DataBean.ContentListBean> item) {
         this.mContext = context;
         this.mItem = item;
         mInflater = LayoutInflater.from(mContext);
@@ -39,9 +39,11 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     @Override
     public void onBindViewHolder(RecommendViewHolder holder, int position) {
-        holder.textView.setText(mItem.get(position).getTitle());
+        holder.mTitle.setText("-"+mItem.get(position).getTitle()+"-");
+        holder.mContent.setText(mItem.get(position).getForward());
+        holder.mForword.setText(mItem.get(position).getWords_info());
         Glide.with(mContext)
-                .load("http://image.wufazhuce.com/Fm8RsSyXPm4f1dpPTxDDaAp1R0ry")
+                .load(mItem.get(position).getImg_url())
                 .placeholder(R.color.cardview_light_background) // can also be a drawable
 //                        .error(R.drawable.ic_home_black_24dp) // will be displayed if the image cannot be loaded
                 .crossFade()
@@ -57,12 +59,16 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     class RecommendViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
-        TextView textView;
+        TextView mTitle;
+        TextView mContent;
+        TextView mForword;
 
         public RecommendViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
-            textView = itemView.findViewById(R.id.title);
+            mTitle = itemView.findViewById(R.id.tv_title);
+            mContent = itemView.findViewById(R.id.tv_content);
+            mForword = itemView.findViewById(R.id.tv_forward);
         }
     }
 }

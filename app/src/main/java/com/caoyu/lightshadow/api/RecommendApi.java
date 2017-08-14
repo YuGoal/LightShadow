@@ -1,11 +1,15 @@
 package com.caoyu.lightshadow.api;
 
+import com.caoyu.lightshadow.api.model.IdList;
+import com.caoyu.lightshadow.api.model.One;
 import com.caoyu.lightshadow.api.model.Recommend;
 
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -15,9 +19,9 @@ import retrofit2.http.QueryMap;
 
 public interface RecommendApi {
 
-    @GET("feed-app")
-    Call<Recommend> getRecommend(@QueryMap() Map<String,String> map);
+    @GET("onelist/idlist")
+    Call<IdList> getIdList();
 
-    @GET("feed-app")
-    Call<Recommend> getRecommend();
+    @GET("onelist/{id}/0")
+    Call<One> getOneList(@Path("id") String shotId);
 }

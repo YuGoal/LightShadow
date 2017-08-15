@@ -2,13 +2,16 @@ package com.caoyu.lightshadow.ui.recommend;
 
 import android.caoyu.com.lightshadow.R;
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.caoyu.lightshadow.api.model.One;
@@ -33,22 +36,39 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     @Override
     public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecommendViewHolder holder = new RecommendViewHolder(mInflater.inflate(R.layout.item_recommend, parent, false));
-        return holder;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            MaterialRippleLayout.on(holder.linearLayout)
+//                    .rippleColor(mContext.getColor(R.color.orange))
+//                    .create();
+//        } else {
+//            MaterialRippleLayout.on(holder.linearLayout)
+//                    .rippleColor(mContext.getResources().getColor(R.color.orange))
+//                    .create();
+//        }
+        return new RecommendViewHolder(
+                MaterialRippleLayout.on(mInflater.inflate(R.layout.item_recommend, parent, false))
+                        .rippleOverlay(true)
+                        .rippleAlpha(0.5f)
+                        .rippleDuration(1)
+                        .rippleColor(mContext.getResources().getColor(R.color.primary_dark))
+                        .rippleHover(true)
+                        .create()
+        );
     }
 
     @Override
     public void onBindViewHolder(RecommendViewHolder holder, int position) {
-        holder.mTitle.setText("-"+mItem.get(position).getTitle()+"-");
+        holder.mTitle.setText(mItem.get(position).getTitle());
         holder.mContent.setText(mItem.get(position).getForward());
         holder.mForword.setText(mItem.get(position).getWords_info());
         Glide.with(mContext)
                 .load(mItem.get(position).getImg_url())
-                .placeholder(R.color.cardview_light_background) // can also be a drawable
+                .placeholder(R.color.cardview_dark_background) // can also be a drawable
 //                        .error(R.drawable.ic_home_black_24dp) // will be displayed if the image cannot be loaded
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imageView);
+
     }
 
     @Override
@@ -62,6 +82,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         TextView mTitle;
         TextView mContent;
         TextView mForword;
+        LinearLayout linearLayout;
 
         public RecommendViewHolder(View itemView) {
             super(itemView);
@@ -69,6 +90,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
             mTitle = itemView.findViewById(R.id.tv_title);
             mContent = itemView.findViewById(R.id.tv_content);
             mForword = itemView.findViewById(R.id.tv_forward);
+            linearLayout = itemView.findViewById(R.id.line);
         }
     }
 }

@@ -47,4 +47,5 @@ dependencies {
 
     //自定义动画
     compile 'com.zyao89:zloading:1.0.5'
+    compile 'com.balysv:material-ripple:1.0.2'
 }

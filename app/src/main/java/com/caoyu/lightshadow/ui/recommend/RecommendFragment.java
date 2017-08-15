@@ -32,7 +32,7 @@ import static com.zyao89.view.zloading.Z_TYPE.LEAF_ROTATE;
 public class RecommendFragment extends Fragment {
     RecyclerView mRecycleview;
     private RecommendAdapter mAdapter;
-    private List<One.DataBean.ContentListBean> mData;
+    private List<One.ResultsBean> mData;
     ZLoadingDialog dialog;
 
     public RecommendFragment() {
@@ -49,9 +49,9 @@ public class RecommendFragment extends Fragment {
         dialog = new ZLoadingDialog(getActivity());//动画
         initData();
         mData = new ArrayList<>();
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecycleview.setLayoutManager(layoutManager);
-        mRecycleview.addItemDecoration(new GridSpacingItemDecoration(1, 10, true));
+        mRecycleview.addItemDecoration(new GridSpacingItemDecoration(2, 10, true));
         mRecycleview.setHasFixedSize(false);
         return view;
     }
@@ -63,37 +63,25 @@ public class RecommendFragment extends Fragment {
                 .setHintText("Loading...")
                 .show();
         //获取列表
-        Api.getRetrofit().create(RecommendApi.class).getIdList()
-                .enqueue(new Callback<IdList>() {
+        Api.getRetrofit().create(RecommendApi.class).getMeizi("1")
+                .enqueue(new Callback<One>() {
                     @Override
-                    public void onResponse(Call<IdList> call, Response<IdList> response) {
-                        if (response.body().getData().size() > 0) {
-                            //根据列表值获取数据
-                            Api.getRetrofit().create(RecommendApi.class).getOneList(response.body().getData().get(0))
-                                    .enqueue(new Callback<One>() {
-                                        @Override
-                                        public void onResponse(Call<One> call, Response<One> response) {
-                                            if (response.body().getData().getContent_list().size() > 0) {
-                                                for (One.DataBean.ContentListBean i : response.body().getData().getContent_list()) {
-                                                    mData.add(i);
-                                                }
-                                                //设置adapter
-                                                mAdapter = new RecommendAdapter(getActivity(), mData);
-                                                mRecycleview.setAdapter(mAdapter);
-                                            }
-                                            dialog.dismiss();
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<One> call, Throwable t) {
-                                            dialog.dismiss();
-                                        }
-                                    });
+                    public void onResponse(Call<One> call, Response<One> response) {
+                        if (response.isSuccess()) {
+                            for (One.ResultsBean i : response.body().getResults()) {
+                                mData.add(i);
+                            }
+                            //设置adapter
+                            mAdapter = new RecommendAdapter(getActivity(), mData);
+                            mRecycleview.setAdapter(mAdapter);
+                            dialog.dismiss();
+                        }else {
+                            dialog.dismiss();
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<IdList> call, Throwable t) {
+                    public void onFailure(Call<One> call, Throwable t) {
                         dialog.dismiss();
                     }
                 });

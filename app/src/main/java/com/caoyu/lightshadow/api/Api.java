@@ -19,7 +19,7 @@ public class Api {
     public final static int WRITE_TIMEOUT=5;
 
     //服务器地址
-    private static final String BASE_URL = "http://v3.wufazhuce.com:8000/api/";
+    private static final String BASE_URL = "http://gank.io/";
     private static Retrofit mRetrofit;
 
     public static Retrofit getRetrofit() {

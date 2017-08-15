@@ -25,10 +25,10 @@ import java.util.List;
 
 public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.RecommendViewHolder> {
     private Context mContext;
-    private List<One.DataBean.ContentListBean> mItem;
+    private List<One.ResultsBean> mItem;
     private LayoutInflater mInflater;
 
-    public RecommendAdapter(Context context, List<One.DataBean.ContentListBean> item) {
+    public RecommendAdapter(Context context, List<One.ResultsBean> item) {
         this.mContext = context;
         this.mItem = item;
         mInflater = LayoutInflater.from(mContext);
@@ -36,15 +36,6 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     @Override
     public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            MaterialRippleLayout.on(holder.linearLayout)
-//                    .rippleColor(mContext.getColor(R.color.orange))
-//                    .create();
-//        } else {
-//            MaterialRippleLayout.on(holder.linearLayout)
-//                    .rippleColor(mContext.getResources().getColor(R.color.orange))
-//                    .create();
-//        }
         return new RecommendViewHolder(
                 MaterialRippleLayout.on(mInflater.inflate(R.layout.item_recommend, parent, false))
                         .rippleOverlay(true)
@@ -58,11 +49,11 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     @Override
     public void onBindViewHolder(RecommendViewHolder holder, int position) {
-        holder.mTitle.setText(mItem.get(position).getTitle());
-        holder.mContent.setText(mItem.get(position).getForward());
-        holder.mForword.setText(mItem.get(position).getWords_info());
+        holder.mTitle.setText(mItem.get(position).getCreatedAt());
+        holder.mContent.setText(mItem.get(position).getSource());
+        holder.mForword.setText(mItem.get(position).getWho());
         Glide.with(mContext)
-                .load(mItem.get(position).getImg_url())
+                .load(mItem.get(position).getUrl())
                 .placeholder(R.color.cardview_dark_background) // can also be a drawable
 //                        .error(R.drawable.ic_home_black_24dp) // will be displayed if the image cannot be loaded
                 .crossFade()

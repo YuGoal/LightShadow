@@ -19,9 +19,7 @@ import retrofit2.http.QueryMap;
 
 public interface RecommendApi {
 
-    @GET("onelist/idlist")
-    Call<IdList> getIdList();
 
-    @GET("onelist/{id}/0")
-    Call<One> getOneList(@Path("id") String shotId);
+    @GET("api/data/福利/20/{id}")
+    Call<One> getMeizi(@Path("id") String shotId);
 }

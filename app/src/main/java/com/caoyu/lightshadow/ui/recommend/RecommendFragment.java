@@ -51,7 +51,7 @@ public class RecommendFragment extends Fragment {
         mData = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecycleview.setLayoutManager(layoutManager);
-        mRecycleview.addItemDecoration(new GridSpacingItemDecoration(2, 10, true));
+        mRecycleview.addItemDecoration(new GridSpacingItemDecoration(1, 10, true));
         mRecycleview.setHasFixedSize(false);
         return view;
     }

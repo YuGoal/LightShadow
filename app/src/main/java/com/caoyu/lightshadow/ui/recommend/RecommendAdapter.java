@@ -49,9 +49,6 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     @Override
     public void onBindViewHolder(RecommendViewHolder holder, int position) {
-        holder.mTitle.setText(mItem.get(position).getCreatedAt());
-        holder.mContent.setText(mItem.get(position).getSource());
-        holder.mForword.setText(mItem.get(position).getWho());
         Glide.with(mContext)
                 .load(mItem.get(position).getUrl())
                 .placeholder(R.color.cardview_dark_background) // can also be a drawable
@@ -70,17 +67,11 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     class RecommendViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
-        TextView mTitle;
-        TextView mContent;
-        TextView mForword;
         LinearLayout linearLayout;
 
         public RecommendViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
-            mTitle = itemView.findViewById(R.id.tv_title);
-            mContent = itemView.findViewById(R.id.tv_content);
-            mForword = itemView.findViewById(R.id.tv_forward);
             linearLayout = itemView.findViewById(R.id.line);
         }
     }

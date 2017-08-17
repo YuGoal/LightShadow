@@ -49,7 +49,9 @@ public class RecommendFragment extends Fragment {
         dialog = new ZLoadingDialog(getActivity());//动画
         initData();
         mData = new ArrayList<>();
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        //布局管理
+        StaggeredGridLayoutManager  layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mRecycleview.setLayoutManager(layoutManager);
         mRecycleview.addItemDecoration(new GridSpacingItemDecoration(1, 10, true));
         mRecycleview.setHasFixedSize(false);

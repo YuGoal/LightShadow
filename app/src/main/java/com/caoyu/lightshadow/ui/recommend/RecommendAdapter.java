@@ -2,8 +2,10 @@ package com.caoyu.lightshadow.ui.recommend;
 
 import android.caoyu.com.lightshadow.R;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,10 @@ import android.widget.TextView;
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.caoyu.lightshadow.api.model.One;
 
 import java.util.List;
@@ -27,6 +33,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     private Context mContext;
     private List<One.ResultsBean> mItem;
     private LayoutInflater mInflater;
+    private SparseArray<Integer> heightArray;
 
     public RecommendAdapter(Context context, List<One.ResultsBean> item) {
         this.mContext = context;
@@ -36,6 +43,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     @Override
     public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        heightArray = new SparseArray<Integer>();
         return new RecommendViewHolder(
                 MaterialRippleLayout.on(mInflater.inflate(R.layout.item_recommend, parent, false))
                         .rippleOverlay(true)
@@ -48,12 +56,39 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     }
 
     @Override
-    public void onBindViewHolder(RecommendViewHolder holder, int position) {
+    public void onBindViewHolder(final RecommendViewHolder holder, final int position) {
+        if (heightArray.get(position) == null) {
+            Glide.with(mContext)
+                    .load(mItem.get(position).getUrl())
+                    .asBitmap()
+                    .placeholder(R.color.cardview_light_background) // can also be a drawable
+                    .error(R.color.cardview_dark_background) // will be displayed if the image cannot be loaded
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+
+                        @Override
+                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                            // Do something with bitmap here.
+                            int height = bitmap.getHeight(); //获取bitmap信息，可赋值给外部变量操作，也可在此时行操作。
+                            bitmap.getWidth();
+                            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.imageView.getLayoutParams();
+                            layoutParams.height = height;
+                            holder.imageView.setLayoutParams(layoutParams);
+                            heightArray.put(position, height);
+                        }
+
+                    });
+        } else {
+            int height = heightArray.get(position);
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.imageView.getLayoutParams();
+            layoutParams.height = height;
+            holder.imageView.setLayoutParams(layoutParams);
+        }
         Glide.with(mContext)
                 .load(mItem.get(position).getUrl())
-                .placeholder(R.color.cardview_dark_background) // can also be a drawable
-//                        .error(R.drawable.ic_home_black_24dp) // will be displayed if the image cannot be loaded
-                .crossFade()
+                .asBitmap()
+                .placeholder(R.color.cardview_light_background) // can also be a drawable
+                .error(R.color.cardview_dark_background) // will be displayed if the image cannot be loaded
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imageView);
 

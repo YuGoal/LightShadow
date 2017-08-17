@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LightShadow.iml" filepath="$PROJECT_DIR$/LightShadow.iml" />
-      <module fileurl="file://E:\LightShadow\LightShadow.iml" filepath="E:\LightShadow\LightShadow.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\LightShadow\app\app.iml" filepath="E:\LightShadow\app\app.iml" />
     </modules>
   </component>
 </project>

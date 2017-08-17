@@ -9,6 +9,8 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,7 +35,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     private Context mContext;
     private List<One.ResultsBean> mItem;
     private LayoutInflater mInflater;
-    private SparseArray<Integer> heightArray;
+//    private SparseArray<Integer> heightArray;
 
     public RecommendAdapter(Context context, List<One.ResultsBean> item) {
         this.mContext = context;
@@ -43,47 +45,49 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     @Override
     public RecommendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        heightArray = new SparseArray<Integer>();
-        return new RecommendViewHolder(
-                MaterialRippleLayout.on(mInflater.inflate(R.layout.item_recommend, parent, false))
-                        .rippleOverlay(true)
-                        .rippleAlpha(0.5f)
-                        .rippleDuration(1)
-                        .rippleColor(mContext.getResources().getColor(R.color.primary_dark))
-                        .rippleHover(true)
-                        .create()
-        );
+//        heightArray = new SparseArray<Integer>();
+        RecommendViewHolder view = new RecommendViewHolder(mInflater.inflate(R.layout.item_recommend, parent, false));
+        return view;
     }
 
     @Override
     public void onBindViewHolder(final RecommendViewHolder holder, final int position) {
-        if (heightArray.get(position) == null) {
-            Glide.with(mContext)
-                    .load(mItem.get(position).getUrl())
-                    .asBitmap()
-                    .placeholder(R.color.cardview_light_background) // can also be a drawable
-                    .error(R.color.cardview_dark_background) // will be displayed if the image cannot be loaded
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-
-                        @Override
-                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-                            // Do something with bitmap here.
-                            int height = bitmap.getHeight(); //获取bitmap信息，可赋值给外部变量操作，也可在此时行操作。
-                            bitmap.getWidth();
-                            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.imageView.getLayoutParams();
-                            layoutParams.height = height;
-                            holder.imageView.setLayoutParams(layoutParams);
-                            heightArray.put(position, height);
-                        }
-
-                    });
-        } else {
-            int height = heightArray.get(position);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.imageView.getLayoutParams();
-            layoutParams.height = height;
-            holder.imageView.setLayoutParams(layoutParams);
-        }
+//        if (heightArray.get(position) == null) {
+//            Glide.with(mContext)
+//                    .load(mItem.get(position).getUrl())
+//                    .asBitmap()
+//                    .placeholder(R.color.cardview_light_background) // can also be a drawable
+//                    .error(R.color.cardview_dark_background) // will be displayed if the image cannot be loaded
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+//
+//                        @Override
+//                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+//                            // Do something with bitmap here.
+//                            int height = bitmap.getHeight(); //获取bitmap信息，可赋值给外部变量操作，也可在此时行操作。
+//                            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.imageView.getLayoutParams();
+//                            layoutParams.height = height;
+//                            holder.imageView.setLayoutParams(layoutParams);
+//                            heightArray.put(position, height);
+//                        }
+//
+//                    });
+//        } else {
+//            int height = heightArray.get(position);
+//            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.imageView.getLayoutParams();
+//            layoutParams.height = height;
+//            holder.imageView.setLayoutParams(layoutParams);
+//        }
+        //view布局参数
+        ViewGroup.LayoutParams para;
+        para = holder.imageView.getLayoutParams();
+        WindowManager wm = (WindowManager) mContext
+                .getSystemService(Context.WINDOW_SERVICE);
+        int width = wm.getDefaultDisplay().getWidth();//获取屏幕宽度
+        int height = wm.getDefaultDisplay().getHeight();//获取屏幕高度
+        para.height = height / 3;
+        para.width = width / 2;
+        holder.imageView.setLayoutParams(para);
         Glide.with(mContext)
                 .load(mItem.get(position).getUrl())
                 .asBitmap()
@@ -100,14 +104,11 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     }
 
     class RecommendViewHolder extends RecyclerView.ViewHolder {
-
         ImageView imageView;
-        LinearLayout linearLayout;
 
         public RecommendViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
-            linearLayout = itemView.findViewById(R.id.line);
         }
     }
 }

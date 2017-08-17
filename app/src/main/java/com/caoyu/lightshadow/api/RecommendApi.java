@@ -20,6 +20,6 @@ import retrofit2.http.QueryMap;
 public interface RecommendApi {
 
 
-    @GET("api/data/福利/20/{id}")
+    @GET("api/data/福利/10/{id}")
     Call<One> getMeizi(@Path("id") String shotId);
 }

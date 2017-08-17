@@ -58,19 +58,17 @@ public class RecommendFragment extends Fragment implements OnRefreshLoadmoreList
                 .show();
         mSmartrefreshlayout.setOnRefreshLoadmoreListener(this);
         initData();
-
-
-        return view;
-    }
-
-    private void initData() {
-        index = 1;
         //布局管理
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
 //        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mRecycleview.setLayoutManager(layoutManager);
         mRecycleview.addItemDecoration(new GridSpacingItemDecoration(1, 5, true));
         mRecycleview.setHasFixedSize(false);
+        return view;
+    }
+
+    private void initData() {
+        index = 1;
         //获取列表
         Api.getRetrofit().create(RecommendApi.class).getMeizi(String.valueOf(index))
                 .enqueue(new Callback<One>() {

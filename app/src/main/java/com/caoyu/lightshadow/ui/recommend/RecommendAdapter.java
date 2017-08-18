@@ -2,6 +2,7 @@ package com.caoyu.lightshadow.ui.recommend;
 
 import android.caoyu.com.lightshadow.R;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +24,9 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.caoyu.lightshadow.api.model.One;
+import com.caoyu.lightshadow.ui.ImagePagerActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,6 +98,20 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
                 .error(R.color.cardview_dark_background) // will be displayed if the image cannot be loaded
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imageView);
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<String> info = new ArrayList<String>();
+                for (One.ResultsBean i :mItem){
+                    info.add(i.getUrl());
+                }
+                Intent intent = new Intent(mContext, ImagePagerActivity.class);
+                intent.putStringArrayListExtra("infoList", info);
+                intent.putExtra("index", position);
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

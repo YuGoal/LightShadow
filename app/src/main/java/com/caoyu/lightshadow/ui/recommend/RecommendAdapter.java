@@ -1,10 +1,12 @@
 package com.caoyu.lightshadow.ui.recommend;
 
+import android.app.ActivityOptions;
 import android.caoyu.com.lightshadow.R;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;

@@ -34,7 +34,8 @@
             android:layout_gravity="bottom"
             android:background="@color/primary_dark"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:itemTextColor="@color/white"
+            app:itemTextColor="@color/select_color"
+            app:itemIconTint="@color/select_color"
             app:menu="@menu/navigation" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

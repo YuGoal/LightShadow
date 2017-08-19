@@ -4,12 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    app:cardCornerRadius="8dip"
-    app:cardElevation="5dip">
+    app:cardElevation="8dip">
 
     <ImageView
         android:id="@+id/image"
+        android:transitionName="sharedView"
         android:scaleType="centerCrop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

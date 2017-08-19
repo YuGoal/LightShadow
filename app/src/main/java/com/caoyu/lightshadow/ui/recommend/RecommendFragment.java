@@ -62,7 +62,7 @@ public class RecommendFragment extends Fragment implements OnRefreshLoadmoreList
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),2);
 //        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mRecycleview.setLayoutManager(layoutManager);
-        mRecycleview.addItemDecoration(new GridSpacingItemDecoration(1, 5, true));
+        mRecycleview.addItemDecoration(new GridSpacingItemDecoration(2, 10, true));
         mRecycleview.setHasFixedSize(false);
         return view;
     }

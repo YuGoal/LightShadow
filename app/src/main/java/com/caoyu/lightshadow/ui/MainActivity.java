@@ -1,6 +1,7 @@
 package com.caoyu.lightshadow.ui;
 
 import android.caoyu.com.lightshadow.R;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -131,13 +132,13 @@ public class MainActivity extends BaseActivity {
             // fade in and space out the title.  Animating the letterSpacing performs horribly so
             // fake it by setting the desired letterSpacing then animating the scaleX ¯\_(ツ)_/¯
             title.setAlpha(0f);
-            title.setScaleX(0.8f);
+            title.setScaleX(0.5f);
 
             title.animate()
                     .alpha(1f)
                     .scaleX(1f)
                     .setStartDelay(300)
-                    .setDuration(900)
+                    .setDuration(1500)
                     .setInterpolator(AnimUtils.getFastOutSlowInInterpolator(this));
         }
     }

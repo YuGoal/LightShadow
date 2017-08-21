@@ -19,10 +19,12 @@ public class Api {
     public final static int WRITE_TIMEOUT=5;
 
     //服务器地址
-    private static final String BASE_URL = "http://gank.io/";
+    public static final String BASE_URL = "http://gank.io/";
+    public static final String JUHE_URL = "http://api.juheapi.com/";
+    public static final String APPKEY = "9252e686c8aad026bd2c3d545e961ace";
     private static Retrofit mRetrofit;
 
-    public static Retrofit getRetrofit() {
+    public static Retrofit getRetrofit(String url) {
         if (mRetrofit == null) {
             //网络缓存路径文件
             // File httpCacheDirectory = new File(BaseApplication.getInstance().getExternalCacheDir(), "responses");
@@ -38,7 +40,7 @@ public class Api {
 
             mRetrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl(BASE_URL)
+                    .baseUrl(url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();

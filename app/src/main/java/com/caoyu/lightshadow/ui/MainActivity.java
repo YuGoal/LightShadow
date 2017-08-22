@@ -58,8 +58,8 @@ public class MainActivity extends BaseActivity {
         fragmentContainter = new ArrayList<>();
         RecommendFragment recommendFragment = new RecommendFragment();
         FindFragment findFragment = new FindFragment();
-        fragmentContainter.add(findFragment);
         fragmentContainter.add(recommendFragment);
+        fragmentContainter.add(findFragment);
         mViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
 
             @Override

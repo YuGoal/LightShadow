@@ -80,7 +80,7 @@ public class FindFragment extends Fragment implements OnRefreshLoadmoreListener 
         params.put("v", "1.0");//版本，当前：1.0
         params.put("month", "8");//月
         params.put("day", "21");//日
-        Api.getRetrofit(Api.JUHE_URL).create(JuheApi.class).toDay(params)
+        Api.getTwoRetrofit().create(JuheApi.class).toDay(params)
                 .enqueue(new Callback<Two>() {
                     @Override
                     public void onResponse(Call<Two> call, Response<Two> response) {

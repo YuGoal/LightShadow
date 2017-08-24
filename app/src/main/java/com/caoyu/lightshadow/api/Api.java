@@ -22,9 +22,9 @@ public class Api {
     public static final String BASE_URL = "http://gank.io/";
     public static final String JUHE_URL = "http://api.juheapi.com/";
     public static final String APPKEY = "9252e686c8aad026bd2c3d545e961ace";
-    private static Retrofit mRetrofit;
+    public static Retrofit mRetrofit;
 
-    public static Retrofit getRetrofit(String url) {
+    public static Retrofit getRetrofit() {
         if (mRetrofit == null) {
             //网络缓存路径文件
             // File httpCacheDirectory = new File(BaseApplication.getInstance().getExternalCacheDir(), "responses");
@@ -40,7 +40,31 @@ public class Api {
 
             mRetrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl(url)
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build();
+        }
+        return mRetrofit;
+    }
+
+    public static Retrofit getTwoRetrofit() {
+        if (mRetrofit == null) {
+            //网络缓存路径文件
+            // File httpCacheDirectory = new File(BaseApplication.getInstance().getExternalCacheDir(), "responses");
+            //通过拦截器设置缓存，暂未实现
+            //CacheInterceptor cacheInterceptor = new CacheInterceptor();
+
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                    .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                    .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+                    .addInterceptor(new MyInterceptors())
+                    .build();
+
+            mRetrofit = new Retrofit.Builder()
+                    .client(client)
+                    .baseUrl(JUHE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();

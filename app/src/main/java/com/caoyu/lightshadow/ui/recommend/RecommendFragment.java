@@ -70,7 +70,7 @@ public class RecommendFragment extends Fragment implements OnRefreshLoadmoreList
     private void initData() {
         index = 1;
         //获取列表
-        Api.getRetrofit(Api.BASE_URL).create(RecommendApi.class).getMeizi(String.valueOf(index))
+        Api.getRetrofit().create(RecommendApi.class).getMeizi(String.valueOf(index))
                 .enqueue(new Callback<One>() {
                     @Override
                     public void onResponse(Call<One> call, Response<One> response) {
@@ -102,7 +102,7 @@ public class RecommendFragment extends Fragment implements OnRefreshLoadmoreList
     private void loadData() {
         index = ++index;
         //获取列表
-        Api.getRetrofit(Api.BASE_URL).create(RecommendApi.class).getMeizi(String.valueOf(index))
+        Api.getRetrofit().create(RecommendApi.class).getMeizi(String.valueOf(index))
                 .enqueue(new Callback<One>() {
                     @Override
                     public void onResponse(Call<One> call, Response<One> response) {

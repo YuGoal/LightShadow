@@ -8,18 +8,17 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * 网络请求类
- * Created by caoyu on 2017/8/12.
+ * Created by caoyu on 2017/8/25.
  */
 
-public class Api {
-
+public class ToDayApi {
     public final static int CONNECT_TIMEOUT =5;
     public final static int READ_TIMEOUT=5;
     public final static int WRITE_TIMEOUT=5;
 
     //服务器地址
-    public static final String BASE_URL = "http://gank.io/";
+    public static final String JUHE_URL = "http://api.juheapi.com/";
+    public static final String APPKEY = "9252e686c8aad026bd2c3d545e961ace";
     public static Retrofit mRetrofit;
 
     public static Retrofit getRetrofit() {
@@ -38,7 +37,7 @@ public class Api {
 
             mRetrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl(BASE_URL)
+                    .baseUrl(JUHE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();

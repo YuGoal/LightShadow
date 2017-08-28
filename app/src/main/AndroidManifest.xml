@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.caoyu.lightshadow.base.BaseActivity" />
-        <activity android:name="com.caoyu.lightshadow.ui.ImagePagerActivity"></activity>
+        <activity android:name="com.caoyu.lightshadow.ui.ImagePagerActivity"/>
     </application>
 
 </manifest>

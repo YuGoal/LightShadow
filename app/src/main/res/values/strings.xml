@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Bana</string>
+    <string name="app_name">Athena</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recommend">妹子</string>
-    <string name="find">视频</string>
+    <string name="find">今日</string>
 </resources>

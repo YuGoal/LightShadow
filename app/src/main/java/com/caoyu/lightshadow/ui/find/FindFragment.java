@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.caoyu.lightshadow.api.JuheApi;
 import com.caoyu.lightshadow.api.ToDayApi;
+import com.caoyu.lightshadow.api.model.Meizi;
 import com.caoyu.lightshadow.api.model.Two;
 import com.caoyu.lightshadow.util.GridSpacingItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -32,6 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.caoyu.lightshadow.api.ToDayApi.APPKEY;
+import static com.caoyu.lightshadow.api.ToDayApi.APPSIGN;
 import static com.caoyu.lightshadow.util.CrashHandler.TAG;
 import static com.zyao89.view.zloading.Z_TYPE.LEAF_ROTATE;
 
@@ -74,21 +76,19 @@ public class FindFragment extends Fragment implements OnRefreshListener {
         return view;
     }
 
-    private void initData() {
-        Map<String,String> params = new HashMap();//请求参数
-        params.put("key", APPKEY);//应用APPKEY(应用详细页查询)
-        params.put("v", "1.0");//版本，当前：1.0
-        params.put("month", getMonth());//月
-        params.put("day", getDay());//日
-        ToDayApi.getRetrofit().create(JuheApi.class).toDay(params)
-                .enqueue(new Callback<Two>() {
+    private void initData(String type,int page) {
+        Map<Object,String> params = new HashMap();//请求参数
+        params.put("showapi_appid", APPKEY);
+        params.put("showapi_sign", APPSIGN);
+        params.put("type", getMonth());
+        params.put("num","10");
+        params.put("page", String.valueOf(page));
+        ToDayApi.getRetrofit().create(JuheApi.class).getMeizi(params)
+                .enqueue(new Callback<Meizi>() {
                     @Override
-                    public void onResponse(Call<Two> call, Response<Two> response) {
-                        if (response.body().getError_code()==0) {
+                    public void onResponse(Call<Meizi> call, Response<Meizi> response) {
+                        if (response.body().getShowapi_res_code()==0) {
                             mData = new ArrayList<>();
-                            for (Two.ResultBean i : response.body().getResult()) {
-                                mData.add(i);
-                            }
                             Log.i(TAG, "onResponse: "+mData.size());
                             //设置adapter
                             mAdapter = new TodayAdapter(getActivity(), mData);
@@ -101,7 +101,7 @@ public class FindFragment extends Fragment implements OnRefreshListener {
                     }
 
                     @Override
-                    public void onFailure(Call<Two> call, Throwable t) {
+                    public void onFailure(Call<Meizi> call, Throwable t) {
                         mSmartrefreshlayout.finishRefresh();
                     }
                 });

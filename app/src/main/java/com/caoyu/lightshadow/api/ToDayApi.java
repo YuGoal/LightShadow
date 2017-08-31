@@ -17,8 +17,11 @@ public class ToDayApi {
     public final static int WRITE_TIMEOUT=5;
 
     //服务器地址
-    public static final String JUHE_URL = "http://api.juheapi.com/";
-    public static final String APPKEY = "9252e686c8aad026bd2c3d545e961ace";
+//    public static final String JUHE_URL = "http://api.juheapi.com/";
+    public static final String JUHE_URL = "http://route.showapi.com/";
+//    public static final String APPKEY = "9252e686c8aad026bd2c3d545e961ace";
+    public static final String APPKEY = "24037";
+    public static final String APPSIGN = "76e3b44c58e841458ad832387acf37f9";
     public static Retrofit mRetrofit;
 
     public static Retrofit getRetrofit() {

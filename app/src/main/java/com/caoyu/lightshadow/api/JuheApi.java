@@ -1,5 +1,6 @@
 package com.caoyu.lightshadow.api;
 
+import com.caoyu.lightshadow.api.model.Meizi;
 import com.caoyu.lightshadow.api.model.Two;
 
 import java.util.Map;
@@ -16,4 +17,7 @@ import retrofit2.http.QueryMap;
 public interface JuheApi {
     @GET("japi/toh")
     Call<Two> toDay(@QueryMap Map<String,String> map);
+
+    @GET("819-1")
+    Call<Meizi> getMeizi(@QueryMap Map<Object,String> map);
 }

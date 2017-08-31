@@ -3,6 +3,7 @@ package com.caoyu.lightshadow.api;
 import com.caoyu.lightshadow.api.model.One;
 import com.caoyu.lightshadow.api.model.Two;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -16,4 +17,5 @@ public interface RecommendApi {
 
     @GET("api/data/福利/10/{id}")
     Call<One> getMeizi(@Path("id") String shotId);
+
 }

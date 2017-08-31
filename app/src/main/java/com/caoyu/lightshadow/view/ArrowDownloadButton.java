@@ -1,5 +1,6 @@
 package com.caoyu.lightshadow.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -591,6 +592,7 @@ public class ArrowDownloadButton extends View {
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(state);
         if (state instanceof Bundle) {
             final Bundle bundle = (Bundle) state;
             x = bundle.getFloat(X_I);
@@ -630,7 +632,7 @@ public class ArrowDownloadButton extends View {
             lengthX = bundle.getFloat(LENGTH_X_I);
             lengthY = bundle.getFloat(LENGTH_Y_I);
         }
-        super.onRestoreInstanceState(state);
+
     }
 
     static class Point {

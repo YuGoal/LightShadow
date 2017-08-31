@@ -6,14 +6,17 @@
     tools:context="com.caoyu.lightshadow.ui.recommend.PicFragment">
 
     <com.caoyu.lightshadow.view.PinchImageView
-        android:layout_gravity="center"
-        android:transitionName="sharedView"
         android:id="@+id/pinch_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:transitionName="sharedView" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <com.caoyu.lightshadow.view.ArrowDownloadButton
+        android:layout_gravity="end|bottom"
+        android:layout_margin="10dp"
+        android:id="@+id/button"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
 </FrameLayout>

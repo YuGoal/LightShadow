@@ -25,6 +25,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.caoyu.lightshadow.api.model.Meizi;
 import com.caoyu.lightshadow.api.model.One;
 import com.caoyu.lightshadow.ui.ImagePagerActivity;
 
@@ -38,11 +39,11 @@ import java.util.List;
 
 public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.RecommendViewHolder> {
     private Context mContext;
-    private List<One.ResultsBean> mItem;
+    private List<Meizi.ShowapiResBodyBean._$0Bean> mItem;
     private LayoutInflater mInflater;
 //    private SparseArray<Integer> heightArray;
 
-    public RecommendAdapter(Context context, List<One.ResultsBean> item) {
+    public RecommendAdapter(Context context, List<Meizi.ShowapiResBodyBean._$0Bean> item) {
         this.mContext = context;
         this.mItem = item;
         mInflater = LayoutInflater.from(mContext);
@@ -57,32 +58,6 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
     @Override
     public void onBindViewHolder(final RecommendViewHolder holder, final int position) {
-//        if (heightArray.get(position) == null) {
-//            Glide.with(mContext)
-//                    .load(mItem.get(position).getUrl())
-//                    .asBitmap()
-//                    .placeholder(R.color.cardview_light_background) // can also be a drawable
-//                    .error(R.color.cardview_dark_background) // will be displayed if the image cannot be loaded
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .into(new SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-//
-//                        @Override
-//                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-//                            // Do something with bitmap here.
-//                            int height = bitmap.getHeight(); //获取bitmap信息，可赋值给外部变量操作，也可在此时行操作。
-//                            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.imageView.getLayoutParams();
-//                            layoutParams.height = height;
-//                            holder.imageView.setLayoutParams(layoutParams);
-//                            heightArray.put(position, height);
-//                        }
-//
-//                    });
-//        } else {
-//            int height = heightArray.get(position);
-//            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.imageView.getLayoutParams();
-//            layoutParams.height = height;
-//            holder.imageView.setLayoutParams(layoutParams);
-//        }
         //view布局参数
         ViewGroup.LayoutParams para;
         para = holder.imageView.getLayoutParams();
@@ -94,7 +69,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         para.width = width / 2;
         holder.imageView.setLayoutParams(para);
         Glide.with(mContext)
-                .load(mItem.get(position).getUrl())
+                .load(mItem.get(position).getThumb())
                 .asBitmap()
                 .placeholder(R.color.cardview_light_background) // can also be a drawable
                 .error(R.color.cardview_dark_background) // will be displayed if the image cannot be loaded
@@ -105,8 +80,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
             @Override
             public void onClick(View view) {
                 ArrayList<String> info = new ArrayList<String>();
-                for (One.ResultsBean i :mItem){
-                    info.add(i.getUrl());
+                for (Meizi.ShowapiResBodyBean._$0Bean i :mItem){
+                    info.add(i.getThumb());
                 }
                 Intent intent = new Intent(mContext, ImagePagerActivity.class);
                 intent.putStringArrayListExtra("infoList", info);

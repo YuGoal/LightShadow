@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- app palette -->
-    <color name="primary">#ff676767</color>
-    <color name="accent">#ff676767</color> <!-- mono-color -->
+    <color name="primary">#ffffff</color>
+    <color name="accent">#ffffff</color> <!-- mono-color -->
     <color name="primary_dark">#ff676767</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>

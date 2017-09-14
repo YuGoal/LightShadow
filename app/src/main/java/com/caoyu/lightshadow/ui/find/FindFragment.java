@@ -66,7 +66,7 @@ public class FindFragment extends Fragment implements OnRefreshListener {
                 .setHintText("Loading...")
                 .show();
         mSmartrefreshlayout.setOnRefreshListener(this);
-        initData();
+        initData(1);
         //布局管理
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 //        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
@@ -76,40 +76,13 @@ public class FindFragment extends Fragment implements OnRefreshListener {
         return view;
     }
 
-    private void initData(String type,int page) {
-        Map<Object,String> params = new HashMap();//请求参数
-        params.put("showapi_appid", APPKEY);
-        params.put("showapi_sign", APPSIGN);
-        params.put("type", getMonth());
-        params.put("num","10");
-        params.put("page", String.valueOf(page));
-        ToDayApi.getRetrofit().create(JuheApi.class).getMeizi(params)
-                .enqueue(new Callback<Meizi>() {
-                    @Override
-                    public void onResponse(Call<Meizi> call, Response<Meizi> response) {
-                        if (response.body().getShowapi_res_code()==0) {
-                            mData = new ArrayList<>();
-                            Log.i(TAG, "onResponse: "+mData.size());
-                            //设置adapter
-                            mAdapter = new TodayAdapter(getActivity(), mData);
-                            mRecycleview.setAdapter(mAdapter);
-                        }
-                        if (dialog != null) {
-                            dialog.dismiss();
-                        }
-                        mSmartrefreshlayout.finishRefresh();
-                    }
+    private void initData(int page) {
 
-                    @Override
-                    public void onFailure(Call<Meizi> call, Throwable t) {
-                        mSmartrefreshlayout.finishRefresh();
-                    }
-                });
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        initData();
+        initData(1);
     }
 
     /**

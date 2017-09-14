@@ -1,13 +1,15 @@
 package com.caoyu.lightshadow.ui;
 
 import android.caoyu.com.lightshadow.R;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -31,90 +33,51 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.viewpager)
     ViewPager mViewpager;
-    @BindView(R.id.navigation)
-    BottomNavigationView mNavigation;
     @BindView(R.id.toolbar)
-    android.support.v7.widget.Toolbar toolbar;
+    Toolbar toolbar;
+    @BindView(R.id.tablayout)
+    TabLayout tablayout;
 
-    private List<Fragment> fragmentContainter;
-    private MenuItem prevMenuItem;
 
+    private String[] tabTitleArray = {"大胸妹", "小清新", "文艺范", "性感妹", "大长腿", "黑丝袜", "小翘臀"};
+    private String[] tabTpyeArray = {"34", "35", "36", "37", "38", "39", "40"};
+
+    private ArrayList<Fragment> fragmentList  = new ArrayList<>();
+    private MyAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         setSupportActionBar(toolbar);
         if (savedInstanceState == null) {
             animateToolbar();
         }
-        mNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        initTab();
         initFragment();
+
+        adapter = new MyAdapter(getSupportFragmentManager(),tabTitleArray,fragmentList);
+        mViewpager.setAdapter(adapter);
+        tablayout.setupWithViewPager(mViewpager, true);
+        tablayout.setTabsFromPagerAdapter(adapter);
+    }
+
+    private void initTab() {
+        tablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        for (String i:tabTitleArray){
+            tablayout.addTab(tablayout.newTab().setText(i));
+        }
     }
 
     private void initFragment() {
-        fragmentContainter = new ArrayList<>();
-        RecommendFragment recommendFragment = new RecommendFragment();
-        FindFragment findFragment = new FindFragment();
-        fragmentContainter.add(recommendFragment);
-        fragmentContainter.add(findFragment);
-        mViewpager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-
-            @Override
-            public int getCount() {
-
-                return fragmentContainter.size();
-            }
-
-            @Override
-            public Fragment getItem(int arg0) {
-                return fragmentContainter.get(arg0);
-            }
-        });
-        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (prevMenuItem != null) {
-                    prevMenuItem.setChecked(false);
-                } else {
-                    mNavigation.getMenu().getItem(0).setChecked(false);
-                }
-                mNavigation.getMenu().getItem(position).setChecked(true);
-
-                prevMenuItem = mNavigation.getMenu().getItem(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        for (int i=0;i<tabTpyeArray.length;i++){
+            fragmentList.add(new RecommendFragment(tabTpyeArray[i]));
+        }
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mViewpager.setCurrentItem(0);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mViewpager.setCurrentItem(1);
-                    return true;
-            }
-            return false;
-        }
 
-    };
+
 
     @Override
     protected void onDestroy() {
@@ -136,7 +99,7 @@ public class MainActivity extends BaseActivity {
                     .alpha(1f)
                     .scaleX(1f)
                     .setStartDelay(300)
-                    .setDuration(1500)
+                    .setDuration(1200)
                     .setInterpolator(AnimUtils.getFastOutSlowInInterpolator(this));
         }
     }

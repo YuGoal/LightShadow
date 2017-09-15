@@ -3,7 +3,7 @@
     <!-- app palette -->
     <color name="primary">#ffffff</color>
     <color name="accent">#ffffff</color> <!-- mono-color -->
-    <color name="primary_dark">#ff676767</color>
+    <color name="primary_dark">#ffffff</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 

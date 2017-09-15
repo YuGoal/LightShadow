@@ -1,6 +1,7 @@
 package com.caoyu.lightshadow.base;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -100,4 +101,47 @@ public abstract  class BaseFragment extends Fragment {
         return null;
     }
 
+
+    //	加载对话框相关
+    private ProgressDialog mProgressDialog;
+
+    protected ProgressDialog getProgressDialog() {
+        if (mProgressDialog != null) {
+            mProgressDialog.cancel();
+        } else {
+            mProgressDialog = new ProgressDialog(getActivity());
+        }
+        return mProgressDialog;
+    }
+
+    protected void showProgressDialog(CharSequence message) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getActivity());
+        }
+        mProgressDialog.setMessage(message);
+        if (!getActivity().isFinishing() && !mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
+    }
+
+    protected void showProgressDialog(CharSequence message, boolean cancelable) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getActivity());
+        }
+        mProgressDialog.setCancelable(cancelable);
+        mProgressDialog.setMessage(message);
+        if (!getActivity().isFinishing() && !mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
+    }
+
+    protected void showProgressDialog(int message) {
+        showProgressDialog(getText(message));
+    }
+
+    protected void closeProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
+        }
+    }
 }

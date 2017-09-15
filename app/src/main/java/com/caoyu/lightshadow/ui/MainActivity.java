@@ -2,25 +2,18 @@ package com.caoyu.lightshadow.ui;
 
 import android.caoyu.com.lightshadow.R;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.caoyu.lightshadow.base.BaseActivity;
-import com.caoyu.lightshadow.ui.find.FindFragment;
 import com.caoyu.lightshadow.ui.recommend.RecommendFragment;
 import com.caoyu.lightshadow.util.AnimUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

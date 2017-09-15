@@ -1,32 +1,18 @@
 package com.caoyu.lightshadow.ui.recommend;
 
-import android.app.ActivityOptions;
 import android.caoyu.com.lightshadow.R;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Build;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.balysv.materialripple.MaterialRippleLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.caoyu.lightshadow.api.model.Meizi;
-import com.caoyu.lightshadow.api.model.One;
 import com.caoyu.lightshadow.ui.ImagePagerActivity;
 
 import java.util.ArrayList;
@@ -71,8 +57,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         Glide.with(mContext)
                 .load(mItem.get(position).getThumb())
                 .asBitmap()
-                .placeholder(R.color.cardview_light_background) // can also be a drawable
-                .error(R.color.cardview_dark_background) // will be displayed if the image cannot be loaded
+                .placeholder(R.color.white) // can also be a drawable
+                .error(R.color.primary_dark) // will be displayed if the image cannot be loaded
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.imageView);
 

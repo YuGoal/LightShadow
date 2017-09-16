@@ -1,8 +1,11 @@
 package com.caoyu.lightshadow.ui.recommend;
 
+import android.app.Activity;
 import android.caoyu.com.lightshadow.R;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +75,13 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
                 Intent intent = new Intent(mContext, ImagePagerActivity.class);
                 intent.putStringArrayListExtra("infoList", info);
                 intent.putExtra("index", position);
-                mContext.startActivity(intent);
+
+                mContext.startActivity(intent
+//                        , ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                        (Activity) mContext,
+//                        Pair.create((View)holder.imageView,mContext.getString(R.string.iv_img_transitionName))
+//                    ).toBundle()
+                );
             }
         });
 

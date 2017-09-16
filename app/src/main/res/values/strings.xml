@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Athena</string>
-
+    <string name="iv_img_transitionName">iv_img_transitionName</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recommend">妹子</string>
